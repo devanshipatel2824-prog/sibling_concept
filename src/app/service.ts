@@ -6,7 +6,7 @@ import { Injectable, signal } from '@angular/core';
 export class Service {
 result = signal<number>(0);
 
-  // 👇 NEW: display string
+  // NEW: display string
   display = signal<string>('');
 
   // number add
@@ -19,7 +19,7 @@ result = signal<number>(0);
     this.display.set(this.display() + op);
   }
 
-  // ===== existing logic (UNCHANGED) =====
+  // existing logic
   add(value: number) {
     this.result.set(this.result() + value);
   }
@@ -40,7 +40,7 @@ result = signal<number>(0);
     }
   }
 
-  // ===== NEW: equal logic =====
+  //  NEW: equal logic
   equal() {
   const exp = this.display();   // ex: 1+1+1 or 2*3*4
 
@@ -48,7 +48,7 @@ result = signal<number>(0);
   let operators: string[] = [];
   let temp = '';
 
-  // 🔹 expression split
+  //  expression split
   for (let ch of exp) {
     if (ch === '+' || ch === '-' || ch === '*' || ch === '/') {
       numbers.push(Number(temp));
@@ -60,7 +60,7 @@ result = signal<number>(0);
   }
   numbers.push(Number(temp));
 
-  // 🔹 calculation (left to right)
+  //calculation (left to right)
   let total = numbers[0];
 
   for (let i = 0; i < operators.length; i++) {
