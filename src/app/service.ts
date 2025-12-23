@@ -60,7 +60,7 @@ result = signal<number>(0);
   }
   numbers.push(Number(temp));
 
-  //calculation (left to right)
+  //calculation (left to right (bodmas))
   let total = numbers[0];
 
   for (let i = 0; i < operators.length; i++) {
