@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Service } from '../service';
 
 @Component({
@@ -26,4 +26,27 @@ equal() {
 clear() {
   this.service.clear();
 }
+ // Map keys to actions
+  private keyMap: Record<string, () => void> = {
+    '+': () => this.service.addOperator('+'),
+    '-': () => this.service.addOperator('-'),
+    '*': () => this.service.addOperator('*'),
+    '/': () => this.service.addOperator('/'),
+    'Enter': () => this.service.equal(),
+    'Backspace': () => this.service.display.set(this.service.display().slice(0, -1)),
+    'Escape': () => this.service.clear(),
+  };
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboard(event: KeyboardEvent) {
+    const key = event.key;
+
+    if (!isNaN(Number(key))) {
+      // If number, call addNumber
+      this.service.addNumber(Number(key));
+    } else if (this.keyMap[key]) {
+      // If key is in map, call corresponding function
+      this.keyMap[key]();
+    }
+  }
 }
